@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const ObjectID = require('mongodb').ObjectID;
+const _ = require('lodash');
 
 const mongoose = require('./mongoose/mongoose').mongoose;
 const Todo = require('./models/todo').Todo;
@@ -29,7 +30,7 @@ app.get('/todos',(req,res) => {
         res.send({result});
     },(err)=>{
         res.status(400).send(err);
-    })
+    });
 });
 
 app.get('/todos/:id',(req,res) => {
@@ -48,6 +49,20 @@ app.get('/todos/:id',(req,res) => {
         })
     }
    // res.send('hello there');
+});
+
+
+app.post('/users', (req, res) => {
+    var body = _.pick(req.body, ['email', 'password']);
+    var user = new User(body);
+
+    user.save().then(() => {
+        return user.generateAuthToken();
+    }).then((token) => {
+        res.header('x-auth', token).send(user);
+    }).catch((e) => {
+        res.status(400).send(e);
+    })
 });
 
 app.listen(3000,() => {

@@ -6,8 +6,11 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.10",
     "mongodb": "~3.0.8",
-    "mongoose": "^5.1.6"
+    "mongoose": "^5.1.6",
+    "validator": "^10.4.0"
   },
   "devDependencies": {},
   "scripts": {
